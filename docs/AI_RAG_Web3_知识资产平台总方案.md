@@ -1286,15 +1286,15 @@ flowchart TD
 
 ```mermaid
 flowchart LR
-    RPT[分析报告 / 策略结果] --> U_DECIDE{用户选择上链?}
-    U_DECIDE -->|否| END[报告仅保留在应用内]
-    U_DECIDE -->|是| DAPP[Dapp 前端调用 Web3 接口]
-    DAPP --> WALLET[用户钱包确认交易]
-    WALLET --> SC_CALL[调用合约 mintReportNFT]
-    SC_CALL --> SC_EXEC[智能合约执行]
-    SC_EXEC --> TX[交易打包并上链]
-    TX --> NFT_MINT[NFT 铸造完成 / 记录可查询]
-    NFT_MINT --> MARKET[可上架到二级市场]
+    RPT["分析报告 / 策略结果"] --> U_DECIDE{"用户选择上链?"}
+    U_DECIDE -->|否| END["报告仅保留在应用内"]
+    U_DECIDE -->|是| DAPP["Dapp 前端调用 Web3 接口"]
+    DAPP --> WALLET["用户钱包确认交易"]
+    WALLET --> SC_CALL["调用合约 mintReportNFT"]
+    SC_CALL --> SC_EXEC["智能合约执行"]
+    SC_EXEC --> TX["交易打包并上链"]
+    TX --> NFT_MINT["NFT 铸造完成 / 记录可查询"]
+    NFT_MINT --> MARKET["可上架到二级市场"]
     
     style RPT fill:#E3F2FD
     style SC_CALL fill:#C8E6C9
