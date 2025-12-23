@@ -388,15 +388,7 @@ AI常过度自信，无法自知其局限性（"AI不知道它不知道什么"�
 
 基于区块链存证的知识图谱+RAG，确保所有知识的来源可溯、修改可查。
 
-```mermaid
-flowchart LR
-    A[知识内容] --> B[RAG处理]
-    B --> C[向量化存储]
-    C --> D[区块链存证]
-    D --> E[知识图谱构建]
-    E --> F[版本管理]
-    F --> G[可溯源查询]
-```
+![Mermaid Diagram 1](images/mermaid_diagram_00_cf7e0c65.png)
 
 #### 3.2.2 智能市场层
 
@@ -404,41 +396,14 @@ flowchart LR
 - **外卖式抢单**：任务池公开，专家根据动态价格和自身技能画像抢单。
 - **去中心化信誉与结算**：基于代币的星级系统和智能合约托管仲裁。
 
-```mermaid
-flowchart TD
-    A[用户需求] --> B[RAG AI客服]
-    B --> C[需求转化为任务单]
-    C --> D[任务池]
-    D --> E[专家抢单]
-    E --> F{技能匹配}
-    F -->|匹配| G[优先接单权]
-    F -->|不匹配| H[等待匹配]
-    G --> I[执行任务]
-    I --> J{任务完成}
-    J -->|满意| K[智能合约自动发放代币]
-    J -->|不满意| L[扣除手续费]
-    L --> M[等待下一个专家]
-```
+![Mermaid Diagram 2](images/mermaid_diagram_01_422cc118.png)
 
 #### 3.2.3 激励与治理层
 
 - **双代币模型**：治理代币（用于投票）与实用代币（用于支付、激励）。
 - **价值反哺**：成功交易中产生的精华知识，经社区验证后可 mint 为 NFT 或贡献给公共图谱，创作者持续获得版税。
 
-```mermaid
-flowchart TD
-    A[知识服务交易] --> B{交易成功}
-    B -->|是| C[生成精华知识]
-    C --> D[社区验证]
-    D --> E{验证通过}
-    E -->|是| F[Mint为NFT]
-    E -->|否| G[返回修改]
-    F --> H[贡献给公共图谱]
-    H --> I[创作者获得版税]
-    I --> J[持续收益]
-    B -->|否| K[扣除手续费]
-    K --> L[等待下一个交易]
-```
+![Mermaid Diagram 3](images/mermaid_diagram_02_104078f6.png)
 
 ### 3.3 后端核心架构
 
@@ -479,106 +444,11 @@ flowchart TD
 
 #### 3.4.1 整体架构
 
-```mermaid
-graph TB
-    subgraph 前端层
-        FE1[Web Portal<br/>Vue.js]
-        FE2[Mobile App<br/>React]
-        FE3[Wallet集成<br/>MetaMask]
-    end
-    
-    subgraph API网关层
-        GW[FastAPI + GraphQL API<br/>认证、限流、路由]
-    end
-    
-    subgraph 业务服务层
-        S1[RAG服务<br/>LlamaIndex]
-        S2[支付服务<br/>Web3支付]
-        S3[NFT服务<br/>智能合约]
-        S4[搜索服务<br/>向量检索]
-        S5[推荐服务<br/>ML算法]
-        S6[评价服务<br/>链上记录]
-    end
-    
-    subgraph 数据存储层
-        DB1[向量数据库<br/>ChromaDB]
-        DB2[关系数据库<br/>PostgreSQL]
-        DB3[对象存储<br/>IPFS/S3]
-    end
-    
-    subgraph 区块链层
-        BC1[智能合约<br/>NFT铸造]
-        BC2[代币合约<br/>ERC-20]
-        BC3[治理合约<br/>DAO投票]
-        BC4[Layer2网络<br/>Polygon/Arb]
-    end
-    
-    FE1 --> GW
-    FE2 --> GW
-    FE3 --> GW
-    GW --> S1
-    GW --> S2
-    GW --> S3
-    GW --> S4
-    GW --> S5
-    GW --> S6
-    S1 --> DB1
-    S4 --> DB1
-    S2 --> DB2
-    S3 --> DB2
-    S5 --> DB2
-    S1 --> DB3
-    S3 --> BC1
-    S2 --> BC2
-    S6 --> BC3
-    BC1 --> BC4
-    BC2 --> BC4
-    BC3 --> BC4
-```
+![Mermaid Diagram 4](images/mermaid_diagram_03_8b483f7f.png)
 
 #### 3.4.2 数据流架构
 
-```mermaid
-flowchart TD
-    subgraph 数据输入
-        IN1[文档上传]
-        IN2[Web3数据源]
-        IN3[API数据]
-    end
-    
-    subgraph 处理层
-        P1[文档解析]
-        P2[向量化]
-        P3[IPFS存储]
-        P4[NFT铸造]
-    end
-    
-    subgraph 存储层
-        ST1[ChromaDB<br/>向量索引]
-        ST2[IPFS<br/>原始文档]
-        ST3[区块链<br/>元数据]
-    end
-    
-    subgraph 查询层
-        Q1[向量检索]
-        Q2[权限验证]
-        Q3[LLM生成]
-    end
-    
-    IN1 --> P1
-    IN2 --> P1
-    IN3 --> P1
-    P1 --> P2
-    P2 --> P3
-    P3 --> P4
-    P2 --> ST1
-    P3 --> ST2
-    P4 --> ST3
-    ST1 --> Q1
-    ST3 --> Q2
-    Q1 --> Q3
-    Q2 --> Q3
-```
+![Mermaid Diagram 5](images/mermaid_diagram_04_4d3faee4.png)
 
 ### 3.5 Web3扩展架构
 
@@ -719,60 +589,11 @@ class Web3RagBuilder(RagBuilder):
 
 **文档上传流程**：
 
-```mermaid
-sequenceDiagram
-    participant User as 用户
-    participant Backend as 后端服务
-    participant RAG as RAG引擎
-    participant Chroma as ChromaDB
-    participant IPFS as IPFS网络
-    participant Contract as 智能合约
-    
-    User->>Backend: 上传文档
-    Backend->>RAG: 文档预处理
-    RAG->>RAG: PDF解析、分块
-    RAG->>Chroma: 向量化存储
-    RAG->>IPFS: 上传原始文档
-    IPFS-->>RAG: 返回CID
-    RAG->>RAG: 计算向量索引哈希
-    RAG->>Contract: 铸造NFT
-    Contract->>Contract: 记录CID和哈希
-    Contract-->>Backend: 返回token_id
-    Backend-->>User: 返回rag_id和token_id
-```
+![Mermaid Diagram 6](images/mermaid_diagram_05_ee093965.png)
 
 **查询流程**：
 
-```mermaid
-sequenceDiagram
-    participant User as 用户
-    participant Backend as 后端服务
-    participant RAG as RAG引擎
-    participant Contract as 智能合约
-    participant Wallet as 钱包
-    
-    User->>Backend: 发起查询
-    Backend->>Contract: 查询NFT信息
-    Contract-->>Backend: 返回NFT元数据
-    Backend->>Contract: 检查访问权限
-    Contract-->>Backend: 权限结果
-    
-    alt 有权限
-        Backend->>RAG: 执行RAG查询
-        RAG-->>Backend: 返回答案+来源CID
-        Backend-->>User: 返回完整答案
-    else 无权限
-        Backend-->>User: 返回支付链接
-        User->>Wallet: 连接钱包
-        Wallet->>Contract: 执行支付
-        Contract-->>Wallet: 交易确认
-        Wallet-->>User: 支付成功
-        User->>Backend: 重新查询
-        Backend->>RAG: 执行RAG查询
-        RAG-->>Backend: 返回答案
-        Backend-->>User: 返回答案
-    end
-```
+![Mermaid Diagram 7](images/mermaid_diagram_06_b1ec55f1.png)
 
 #### 4.2.2 权限验证中间件
 
@@ -1107,87 +928,7 @@ async def list_marketplace(
 
 以下流程图分为业务层和技术层两个维度，将IDEATHON场景与知识提供者/消费者流程统一整合。
 
-```mermaid
-flowchart TD
-%% 业务层：统一的知识服务流程
-subgraph Business["业务层：知识服务流程"]
-    U[用户访问 Dapp / Web 前端] --> W[连接 Web3 钱包 / 登录]
-    W --> S1[选择信息源与订阅级别]
-    
-    subgraph Provider["知识提供者流程"]
-        P1[上传文档] --> P2[文档预处理<br/>PDF解析、分块]
-        P2 --> P3[向量化存储<br/>ChromaDB + IPFS备份]
-        P3 --> P4[生成知识NFT<br/>智能合约铸造]
-        P4 --> P5[设置定价策略<br/>按次/包周/买断]
-        P5 --> P6[上架到市场<br/>去中心化市场]
-        P6 --> P7[获得收益<br/>代币/稳定币]
-    end
-    
-    subgraph Consumer["知识消费者流程"]
-        C1[浏览知识市场] --> C2[选择知识NFT]
-        C2 --> C3[支付<br/>代币/稳定币]
-        C3 --> C4[获得访问权限<br/>链上记录]
-        C4 --> C5[RAG问答查询]
-        C5 --> C6[获得答案<br/>引用来源]
-        C6 --> C7[评价反馈<br/>链上记录，影响排名]
-    end
-    
-    subgraph IDEATHON["IDEATHON场景流程"]
-        I1[发起情报查询 / 研究请求] --> I2[生成分析报告 / 投研策略]
-        I2 --> I3[查看报告结果]
-        I3 --> I4{选择是否将报告铸造成NFT}
-        I4 -->|是| I5[调用智能合约铸造NFT]
-        I4 -->|否| I6[报告仅保留在应用内]
-    end
-    
-    S1 --> Provider
-    S1 --> Consumer
-    S1 --> IDEATHON
-end
-
-%% 技术层：RAG平台
-subgraph System["技术层：RAG平台"]
-    FE[前端 Vue3 + Element Plus]
-    API[FastAPI Backend]
-    UP[上传接口 /v1/rag 创建 RAG 任务]
-    RB[RagBuilder 构建索引 LlamaIndex + 向量库]
-    QE[QueryEngine 缓存 按 rag_id 存储]
-    CH[提问接口 /v1/chat]
-    LLM[LLM Qwen2.5-7B-Instruct via Ollama]
-    ANS[返回答案给用户]
-    PR[计费预览接口 /v1/pricingpreview]
-    BILL[定价逻辑 按 token / 请求计费]
-    SC[智能合约 EVM / Solidity / Remix]
-    CHAIN[区块链网络]
-    IPFS_NODE[IPFS节点]
-    
-    FE --> API
-    API --> UP
-    UP --> RB
-    RB --> QE
-    RB --> IPFS_NODE
-    FE --> CH
-    CH --> QE
-    QE --> LLM
-    LLM --> ANS
-    FE --> PR
-    PR --> BILL
-    SC --> CHAIN
-    RB --> SC
-    CH --> SC
-end
-
-%% 业务与技术之间的映射
-P1 --> UP
-P3 --> IPFS_NODE
-P4 --> SC
-C2 --> FE
-C5 --> CH
-C6 --> ANS
-I1 --> CH
-I2 --> ANS
-I5 --> SC
-```
+![Mermaid Diagram 8](images/mermaid_diagram_07_2b46ad47.png)
 
 ### 5.2 核心业务流程子图
 
@@ -1195,156 +936,35 @@ I5 --> SC
 
 融合了文档上传、RAG构建、NFT铸造和上架销售的完整流程。
 
-```mermaid
-flowchart TD
-    A[用户上传原始文件] --> B[文件预处理]
-    B --> C{文件格式}
-    C -->|PDF| D1[PyPDF2/PDFplumber解析]
-    C -->|Word| D2[python-docx解析]
-    C -->|PPT| D3[python-pptx解析]
-    C -->|图片| D4[Pillow OCR提取]
-    D1 --> E[智能分块]
-    D2 --> E
-    D3 --> E
-    D4 --> E
-    E --> F[语义分块策略]
-    F --> G[向量化与索引]
-    G --> H[存入向量数据库<br/>ChromaDB]
-    H --> I[上传到IPFS<br/>获得CID]
-    I --> J[RAG Agent封装]
-    J --> K[产品化包装]
-    K --> L[定价与市场引擎]
-    L --> M[生成知识NFT<br/>智能合约铸造]
-    M --> N[上架到市场]
-    N --> O[获得收益<br/>代币/稳定币]
-    
-    style A fill:#E3F2FD
-    style M fill:#C8E6C9
-    style O fill:#FFF9C4
-```
+![Mermaid Diagram 9](images/mermaid_diagram_08_3045d916.png)
 
 #### 5.2.2 知识消费者完整流程
 
 融合了市场浏览、支付、RAG查询和反馈的完整流程。
 
-```mermaid
-flowchart TD
-    A[浏览知识市场] --> B[选择知识NFT]
-    B --> C[查看NFT信息<br/>价格、描述、销量]
-    C --> D{检查访问权限}
-    D -->|有权限| E[直接查询]
-    D -->|无权限| F[支付<br/>代币/稳定币]
-    F --> G[智能合约确认支付]
-    G --> H[获得访问权限<br/>链上记录]
-    H --> E
-    E --> I[RAG问答查询]
-    I --> J[向量检索<br/>top-k相似文档]
-    J --> K[LLM生成答案]
-    K --> L[获得答案<br/>引用来源CID]
-    L --> M[评价反馈<br/>链上记录，影响排名]
-    
-    style A fill:#E3F2FD
-    style F fill:#C8E6C9
-    style L fill:#FFF9C4
-```
+![Mermaid Diagram 10](images/mermaid_diagram_09_ecbaa103.png)
 
 #### 5.2.3 智能市场与交易流程
 
 融合了任务创建、专家抢单、执行和结算的完整流程。
 
-```mermaid
-flowchart TD
-    A[用户需求] --> B[RAG AI客服]
-    B --> C[需求转化为任务单]
-    C --> D[任务池]
-    D --> E[专家抢单]
-    E --> F{技能匹配}
-    F -->|高匹配| G[优先接单权]
-    F -->|低匹配| H[等待匹配]
-    G --> I[执行任务]
-    I --> J{任务完成}
-    J -->|满意| K[智能合约自动发放代币]
-    J -->|不满意| L[扣除手续费]
-    L --> M[等待下一个专家]
-    K --> N[生成精华知识]
-    N --> O[社区验证]
-    O --> P{验证通过}
-    P -->|是| Q[Mint为NFT]
-    P -->|否| R[返回修改]
-    Q --> S[贡献给公共图谱]
-    S --> T[创作者获得版税]
-    T --> U[持续收益]
-    
-    style A fill:#E3F2FD
-    style K fill:#C8E6C9
-    style Q fill:#FFF9C4
-```
+![Mermaid Diagram 11](images/mermaid_diagram_10_ae90129f.png)
 
 #### 5.2.4 Web3/NFT流程
 
 融合了报告生成、NFT铸造和上链的完整流程。
 
-```mermaid
-flowchart LR
-    RPT[分析报告 / 策略结果] --> U_DECIDE{用户选择上链?}
-    U_DECIDE -->|否| END[报告仅保留在应用内]
-    U_DECIDE -->|是| DAPP[Dapp 前端调用 Web3 接口]
-    DAPP --> WALLET[用户钱包确认交易]
-    WALLET --> SC_CALL[调用合约 mintReportNFT]
-    SC_CALL --> SC_EXEC[智能合约执行]
-    SC_EXEC --> TX[交易打包并上链]
-    TX --> NFT_MINT[NFT 铸造完成 / 记录可查询]
-    NFT_MINT --> MARKET[可上架到二级市场]
-    
-    style RPT fill:#E3F2FD
-    style SC_CALL fill:#C8E6C9
-    style NFT_MINT fill:#FFF9C4
-```
+![Mermaid Diagram 12](images/mermaid_diagram_11_f209cf33.png)
 
 ### 5.3 激励机制流程
 
-```mermaid
-flowchart TD
-    A[每次交易] --> B[知识提供者<br/>70%收益]
-    A --> C[平台<br/>20%收益<br/>DAO治理]
-    A --> D[推荐人<br/>5%收益]
-    A --> E[社区基金<br/>5%收益<br/>生态建设]
-    
-    B --> F[持续激励创作]
-    C --> G[平台运营与治理]
-    D --> H[推广激励]
-    E --> I[生态建设]
-    
-    style B fill:#C8E6C9
-    style C fill:#FFF9C4
-    style D fill:#E1BEE7
-    style E fill:#BBDEFB
-```
+![Mermaid Diagram 13](images/mermaid_diagram_12_34c4a123.png)
 
 ### 5.4 技术实现流程
 
 #### 5.4.1 RAG构建技术流程
 
-```mermaid
-flowchart TD
-    UPL[用户在前端上传文档] --> API_RAG[POST /v1/rag]
-    API_RAG --> SAVE[保存文件到后端存储]
-    SAVE --> PARSE[解析文档并抽取文本]
-    PARSE --> EMB[生成向量嵌入<br/>BGE-M3/text-embedding-3-small]
-    EMB --> STORE[写入向量库<br/>Chroma/Milvus]
-    STORE --> IPFS_UPLOAD[上传原始文档到IPFS]
-    IPFS_UPLOAD --> IPFS_CID[获得IPFS CID]
-    IPFS_CID --> QE_INIT[创建并缓存 QueryEngine rag_id]
-    QE_INIT --> NFT_MINT[可选：铸造NFT]
-    
-    ASK[用户在前端输入问题] --> API_CHAT[POST /v1/chat]
-    API_CHAT --> PERM_CHECK[权限验证<br/>检查链上访问权限]
-    PERM_CHECK -->|有权限| QE_USE[根据 rag_id 调用 QueryEngine]
-    PERM_CHECK -->|无权限| PAYMENT[引导支付]
-    QE_USE --> RETR[相似度检索 top-k 文档片段]
-    RETR --> GEN[LLM 生成回答<br/>Qwen2.5-7B]
-    GEN --> RESP[返回答案给前端<br/>包含来源CID]
-```
+![Mermaid Diagram 14](images/mermaid_diagram_13_0b397649.png)
 
 #### 5.4.2 数据流架构
 
@@ -1445,22 +1065,7 @@ MVP的目标不是完美，而是用最小代价验证"用户是否会为拖拽�
 
 #### Q1: 基础建设（0-3个月）
 
-```mermaid
-gantt
-    title Q1 基础建设阶段
-    dateFormat YYYY-MM-DD
-    section Web3集成
-    IPFS集成           :2024-01-01, 2w
-    智能合约开发        :2024-01-15, 3w
-    Web3钱包集成       :2024-02-01, 2w
-    支付流程测试        :2024-02-15, 2w
-    section 功能开发
-    权限系统           :2024-01-01, 4w
-    市场功能           :2024-02-01, 3w
-    section 测试部署
-    测试网部署         :2024-03-01, 2w
-    安全审计           :2024-03-15, 1w
-```
+![Mermaid Diagram 15](images/mermaid_diagram_14_0329545e.png)
 
 **Week 1-2: IPFS集成**
 - 搭建IPFS节点
@@ -1484,19 +1089,7 @@ gantt
 
 #### Q2: 功能完善（3-6个月）
 
-```mermaid
-gantt
-    title Q2 功能完善阶段
-    dateFormat YYYY-MM-DD
-    section 核心功能
-    权限系统优化       :2024-04-01, 3w
-    市场功能完善       :2024-04-15, 4w
-    推荐系统           :2024-05-01, 4w
-    section 移动端
-    移动端开发         :2024-05-15, 6w
-    section 优化
-    性能优化           :2024-06-01, 4w
-```
+![Mermaid Diagram 16](images/mermaid_diagram_15_530df922.png)
 
 **Month 4: 权限系统优化**
 - 实现缓存机制
@@ -1515,19 +1108,7 @@ gantt
 
 #### Q3: 优化扩展（6-9个月）
 
-```mermaid
-gantt
-    title Q3 优化扩展阶段
-    dateFormat YYYY-MM-DD
-    section 技术优化
-    性能优化           :2024-07-01, 4w
-    多链支持           :2024-07-15, 4w
-    section 新功能
-    DAO治理            :2024-08-01, 4w
-    API开放            :2024-08-15, 4w
-    section 生态建设
-    合作伙伴对接        :2024-09-01, 4w
-```
+![Mermaid Diagram 17](images/mermaid_diagram_16_91de5d09.png)
 
 **Month 7: 性能优化**
 - RAG查询优化
@@ -1546,17 +1127,7 @@ gantt
 
 #### Q4: 生态建设（9-12个月）
 
-```mermaid
-gantt
-    title Q4 生态建设阶段
-    dateFormat YYYY-MM-DD
-    section 生态
-    合作伙伴对接        :2024-10-01, 6w
-    社区建设           :2024-10-15, 8w
-    section 商业化
-    代币发行           :2024-11-01, 4w
-    市场推广           :2024-11-15, 6w
-```
+![Mermaid Diagram 18](images/mermaid_diagram_17_c0e538f7.png)
 
 **Month 10-11: 合作伙伴对接**
 - API对接
@@ -2001,13 +1572,7 @@ gantt
 
 链接预言机实时监控更新市场价格变化
 
-```mermaid
-flowchart LR
-    A[市场价格数据] --> B[预言机]
-    B --> C[实时更新]
-    C --> D[价格对比界面]
-    D --> E[用户选择]
-```
+![Mermaid Diagram 19](images/mermaid_diagram_18_53a7526e.png)
 
 #### 附录2: 知识付费转化成用知识解决问题抢跑接单
 
@@ -2021,18 +1586,7 @@ flowchart LR
 
 **优点**：将被动学习转化成以解决问题为导向的主动学习，还可以获得代币奖励鼓励主动学习
 
-```mermaid
-flowchart TD
-    A[知识内容] --> B[知识图谱构建]
-    B --> C[技能标签化]
-    C --> D[专家技能画像]
-    D --> E[任务匹配]
-    E --> F{技能匹配度}
-    F -->|高匹配| G[优先接单权]
-    F -->|低匹配| H[等待匹配]
-    G --> I[执行任务]
-    I --> J[获得代币奖励]
-```
+![Mermaid Diagram 20](images/mermaid_diagram_19_cbd3cf64.png)
 
 #### 附录3: RAG AI客服
 
@@ -2046,54 +1600,15 @@ RAG AI客服作为智能市场层的第一道入口，负责：
 
 **项目完成交易双方满意后智能合约自动发放代币**
 
-```mermaid
-sequenceDiagram
-    participant U as 用户
-    participant E as 专家
-    participant SC as 智能合约
-    participant T as 代币系统
-    
-    U->>E: 发布任务
-    E->>E: 执行任务
-    E->>U: 提交结果
-    U->>SC: 确认满意
-    SC->>T: 自动发放代币
-    T->>E: 支付代币
-    T->>U: 扣除费用
-```
+![Mermaid Diagram 21](images/mermaid_diagram_20_5f0966e1.png)
 
 **如不满意智能合约自动扣除手续费等待下一个客户（参照打车平台）**
 
-```mermaid
-sequenceDiagram
-    participant U as 用户
-    participant E1 as 专家1
-    participant SC as 智能合约
-    participant E2 as 专家2
-    
-    U->>E1: 发布任务
-    E1->>U: 提交结果
-    U->>SC: 不满意
-    SC->>SC: 扣除手续费
-    SC->>E2: 任务重新发布
-    E2->>U: 重新执行任务
-```
+![Mermaid Diagram 22](images/mermaid_diagram_21_732d15fd.png)
 
 #### 附录5: 移动端数据获取与区块链处理流程
 
-```mermaid
-flowchart TD
-    A[移动端应用] --> B[数据采集]
-    B --> C[数据预处理]
-    C --> D[数据验证]
-    D --> E{验证通过}
-    E -->|是| F[上传到区块链]
-    E -->|否| G[返回错误]
-    F --> H[智能合约处理]
-    H --> I[数据存证]
-    I --> J[知识图谱更新]
-    G --> B
-```
+![Mermaid Diagram 23](images/mermaid_diagram_22_277e60c0.png)
 
 ### D. 联系方式
 
