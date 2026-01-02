@@ -9,4 +9,8 @@ python-pptx
 Pillow
 sentence-transformers
 python-multipart
+ipfshttpclient
+web3
+eth-account
+python-dotenv
 

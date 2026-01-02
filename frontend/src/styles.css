@@ -1,3 +1,27 @@
 @import 'tailwindcss' source(none);
 @source '../**/*.{vue,js}';
 
+/* 颜色变量定义 - 全白简洁风格 */
+:root {
+  --background: #ffffff;
+  --foreground: #030213;
+  --card: #ffffff;
+  --card-foreground: #030213;
+  --border: rgba(0, 0, 0, 0.1);
+  --input-background: #f3f3f5;
+  --primary: #030213;
+  --primary-foreground: #ffffff;
+  --muted: #ececf0;
+  --muted-foreground: #717182;
+  --accent: #e9ebef;
+  --radius: 0.625rem;
+}
+
+/* 全局样式 */
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  margin: 0;
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+}
+

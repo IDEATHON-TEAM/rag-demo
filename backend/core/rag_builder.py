@@ -5,6 +5,9 @@ from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.llms.ollama import Ollama
 from llama_index.vector_stores.chroma import ChromaVectorStore
 import chromadb
+from typing import Optional, Tuple
+from .ipfs_service import get_ipfs_service
+from .vector_hash_service import VectorHashService
 
 class RagBuilder:
     def __init__(self):
@@ -31,8 +34,14 @@ class RagBuilder:
         # 初始化 Chroma 客户端
         # 使用容器内的绝对路径，确保与 docker-compose 的挂载点一致
         self.chroma_client = chromadb.PersistentClient(path="/app/chroma_db")
+        
+        # 初始化IPFS服务
+        self.ipfs_service = get_ipfs_service()
+        
+        # 初始化向量哈希服务
+        self.vector_hash_service = VectorHashService(self.chroma_client)
 
-    def build_from_file(self, file_path: str):
+    def build_from_file(self, file_path: str, upload_to_ipfs: bool = False) -> Tuple[object, Optional[str], Optional[str]]:
         # 1. 读取文档（LlamaIndex 支持多种格式）
         # SimpleDirectoryReader 默认支持 .pdf, .docx, .pptx, .txt 等
         documents = SimpleDirectoryReader(input_files=[file_path]).load_data()
@@ -57,5 +66,20 @@ class RagBuilder:
         # 4. 创建查询引擎
         query_engine = index.as_query_engine(similarity_top_k=3)
         
-        return query_engine
+        # 5. 向量哈希计算（用于验证知识库完整性）
+        # 注意：不再上传原始文档到IPFS，NFT内容应该是查询结果包
+        # upload_to_ipfs参数保留用于向后兼容，但实际不再使用
+        ipfs_cid = None
+        vector_hash = None
+        
+        try:
+            # 计算向量索引哈希（用于验证知识库完整性）
+            vector_hash = self.vector_hash_service.calculate_vector_hash_hex32(collection_name)
+            if vector_hash:
+                print(f"Vector hash calculated: {vector_hash}")
+        except Exception as e:
+            print(f"Warning: Vector hash calculation failed: {e}")
+            # 继续执行，不中断流程
+        
+        return query_engine, ipfs_cid, vector_hash
 
