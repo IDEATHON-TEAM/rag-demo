@@ -1,0 +1,11 @@
+{
+  "insurance_sft": {
+    "file_name": "data/insurance_sft.json",
+    "columns": {
+      "prompt": "instruction",
+      "query": "input",
+      "response": "output",
+      "system": "system"
+    }
+  }
+}

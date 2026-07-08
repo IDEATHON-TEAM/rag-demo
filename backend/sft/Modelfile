@@ -1,0 +1,6 @@
+# Ollama Modelfile — 把 SFT + 量化后的 GGUF 注册为本地模型
+# 用法: ollama create deepseek-r1-7b-ins-sft -f Modelfile
+FROM ./output/deepseek-r1-7b-ins-q4_k_m.gguf
+
+PARAMETER temperature 0.3
+SYSTEM """你是一名专业的保险问答助手。请用准确、严谨的保险条款风格回答用户问题；如果提供了保险条款内容，回答必须严格依据条款原文；如果条款内容不足以回答问题，请明确说明无法确认，建议用户核对保单原文，不要编造。"""

@@ -1,0 +1,6 @@
+# SFT 训练环境依赖（与 backend 运行时依赖分离，只在训练机上安装）
+# LlamaFactory 自带 transformers/peft/trl/datasets 等训练栈
+llamafactory[torch,metrics]>=0.9.0
+# 数据构造脚本用
+requests
+pymupdf

@@ -1,6 +1,7 @@
 import os
 from llama_index.core import SimpleDirectoryReader, VectorStoreIndex, Settings, StorageContext
 from llama_index.core.node_parser import SentenceSplitter
+from llama_index.core.postprocessor import SentenceTransformerRerank
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.llms.ollama import Ollama
 from llama_index.vector_stores.chroma import ChromaVectorStore
@@ -15,8 +16,9 @@ class RagBuilder:
         ollama_base_url = os.getenv("OLLAMA_HOST", "http://localhost:11434")
         
         # 配置 LLM (连接 Ollama)
+        # 模型名可通过 OLLAMA_MODEL 覆盖，用于切换到 SFT 微调后的模型（见 backend/sft/）
         self.llm = Ollama(
-            model="qwen2.5:7b", 
+            model=os.getenv("OLLAMA_MODEL", "qwen2.5:7b"),
             base_url=ollama_base_url,
             request_timeout=120.0 # 增加超时时间以防首次加载慢
         )
@@ -30,6 +32,14 @@ class RagBuilder:
 
         # 配置文本分块器
         Settings.text_splitter = SentenceSplitter(chunk_size=512, chunk_overlap=50)
+
+        # 配置 Reranker（交叉编码器精排）
+        # 检索阶段先用向量相似度粗召回 RETRIEVE_TOP_K 条，
+        # 再由 reranker 对 query-chunk 逐对打分，只保留最相关的 top_n 条进入生成
+        self.reranker = SentenceTransformerRerank(
+            model=os.getenv("RERANK_MODEL", "BAAI/bge-reranker-base"),
+            top_n=int(os.getenv("RERANK_TOP_N", "3"))
+        )
 
         # 初始化 Chroma 客户端
         # 使用容器内的绝对路径，确保与 docker-compose 的挂载点一致
@@ -63,8 +73,11 @@ class RagBuilder:
             show_progress=True
         )
 
-        # 4. 创建查询引擎
-        query_engine = index.as_query_engine(similarity_top_k=3)
+        # 4. 创建查询引擎（两段式检索：向量粗召回 -> reranker 精排）
+        query_engine = index.as_query_engine(
+            similarity_top_k=int(os.getenv("RETRIEVE_TOP_K", "10")),
+            node_postprocessors=[self.reranker]
+        )
         
         # 5. 向量哈希计算（用于验证知识库完整性）
         # 注意：不再上传原始文档到IPFS，NFT内容应该是查询结果包

@@ -94,3 +94,9 @@ logs/
 *.orig
 
 docs/BG
+
+# SFT artifacts (datasets / checkpoints / merged weights / gguf)
+backend/sft/data/
+backend/sft/output/
+backend/sft/clauses/
+*.gguf

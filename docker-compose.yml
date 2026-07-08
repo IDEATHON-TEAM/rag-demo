@@ -20,6 +20,12 @@ services:
     environment:
       # 将地址改为 host.docker.internal，指向宿主机 Mac 的 Ollama
       - OLLAMA_HOST=http://host.docker.internal:11434
+      # 生成模型：SFT 微调完成后改成 deepseek-r1-7b-ins-sft（见 backend/sft/README.md）
+      - OLLAMA_MODEL=${OLLAMA_MODEL:-qwen2.5:7b}
+      # 检索链路：向量粗召回条数 / 精排模型 / 精排后保留条数
+      - RETRIEVE_TOP_K=${RETRIEVE_TOP_K:-10}
+      - RERANK_MODEL=${RERANK_MODEL:-BAAI/bge-reranker-base}
+      - RERANK_TOP_N=${RERANK_TOP_N:-3}
 
   frontend:
     build: ./frontend
